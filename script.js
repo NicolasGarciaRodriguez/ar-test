@@ -1,25 +1,27 @@
 window.onload = () => {
+    var latitud;
+    var longitud;
     const button = document.querySelector('button[data-action="change"]');
     button.innerText = '﹖';
-
-    let places = staticLoadPlaces();
-    renderPlaces(places);
-};
-
-function staticLoadPlaces() {
     navigator.geolocation.getCurrentPosition((pos) => {
         latitud = pos.coords.latitude,
         longitud = pos.coords.longitude
-        return [
-            {
-                name: 'Pokèmon',
-                location: {
-                    lat: latitud,
-                    lng: longitud
-                },
-            },
-        ];
     })
+    let places = staticLoadPlaces(latitud, longitud);
+    renderPlaces(places);
+    console.log(latitud, longitud);
+};
+
+function staticLoadPlaces(lat, long) {
+    return [
+        {
+            name: 'Pokèmon',
+            location: {
+                lat: lat,
+                lng: long
+            },
+        },
+    ];
 }
 
 var models = [
